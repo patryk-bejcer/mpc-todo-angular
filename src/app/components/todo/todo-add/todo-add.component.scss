@@ -1,13 +1,12 @@
 @import "../../../../assets/scss/variables";
 
 .todo-add-popup {
-  display: none;
   position: absolute;
   width: 100%;
   height: 100%;
   left: 0;
   top: 0;
-  //display: flex;
+  display: flex;
   align-items: center;
   justify-content: center;
   background: #FFF;

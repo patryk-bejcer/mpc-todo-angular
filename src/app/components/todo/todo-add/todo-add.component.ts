@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 
 @Component({
   selector: 'app-todo-add',
@@ -6,10 +6,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./todo-add.component.scss']
 })
 export class TodoAddComponent implements OnInit {
+  @Output() closePopupEvent = new EventEmitter<string>();
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit(): void {
+  }
+
+  onClickClosePopupButton(): void {
+    this.closePopupEvent.emit();
   }
 
 }
