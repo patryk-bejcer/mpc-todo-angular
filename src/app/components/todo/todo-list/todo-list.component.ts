@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {TodoService} from '../../../services/todo.service';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
   selector: 'app-todo-list',
@@ -9,9 +10,15 @@ import {TodoService} from '../../../services/todo.service';
 export class TodoListComponent implements OnInit {
   popup: boolean;
 
-  constructor(public todoService: TodoService) { }
+  constructor(public todoService: TodoService, private spinner: NgxSpinnerService) {
+  }
 
   ngOnInit(): void {
+    if (this.todoService.loading) {
+      this.spinner.show();
+    } else {
+      this.spinner.hide();
+    }
   }
 
   onClickAddButton(): void {

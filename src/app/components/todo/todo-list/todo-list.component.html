@@ -1,7 +1,8 @@
-<app-todo-add *ngIf="popup" (closePopupEvent)="closePopup()"></app-todo-add>
+<ngx-spinner *ngIf="todoService.loading" bdColor="rgba(255,255,255,1)" color="#802A08" type="ball-clip-rotate-multiple" size="medium">
+  <p class="loading">Loading TODO APP</p>
+</ngx-spinner>
 
-<div class="todo-list">
-
+<div class="todo-list" *ngIf="!todoService.loading">
   <div class="todo-list__nav">
     <div class="todo-list__btn todo-list__btn--add" (click)="onClickAddButton()">
       <i class="fas fa-plus"></i>
@@ -20,3 +21,6 @@
   </div>
 
 </div>
+
+<app-todo-add *ngIf="popup" (closePopupEvent)="closePopup()"></app-todo-add>
+

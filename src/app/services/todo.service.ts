@@ -10,8 +10,10 @@ const API_URL = environment.API_URL;
 })
 export class TodoService {
   todos: Todo[] = [];
+  loading: boolean;
 
   constructor(private http: HttpClient) {
+    this.loading = true;
     this.todos = this.getTodos();
   }
 
@@ -19,7 +21,7 @@ export class TodoService {
     this.http.get<{ data: Array<Todo> }>(API_URL).subscribe(
       ({data}) => {
         this.todos = data;
-        console.log(data);
+        this.loading = false;
       },
       error => {
         console.log(error);
