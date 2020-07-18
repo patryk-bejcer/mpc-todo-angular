@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
 import {TodoService} from '../../../services/todo.service';
 
 @Component({
@@ -6,29 +6,24 @@ import {TodoService} from '../../../services/todo.service';
   templateUrl: './todo-add.component.html',
   styleUrls: ['./todo-add.component.scss']
 })
-export class TodoAddComponent implements OnInit {
-  title: string;
-  validError: boolean;
+export class TodoAddComponent {
+  title = '';
+  isInputValid = false;
   @Output() closePopupEvent = new EventEmitter<string>();
 
-  constructor(public todoService: TodoService) {
+  constructor(private todoService: TodoService) {  }
+
+  onInputChange(): void {
+    this.isInputValid = this.title.length > 3;
   }
 
-  ngOnInit(): void {
-    this.title = '';
+  onSubmit(): void {
+    if (!this.isInputValid) { return; }
+    this.todoService.addTodo(this.title);
+    this.closePopupEvent.emit();
   }
 
   onClickClosePopupButton(): void {
     this.closePopupEvent.emit();
   }
-
-  onClickAddButton(): void {
-    if (this.title.length > 3) {
-      this.todoService.addTodo(this.title);
-      this.closePopupEvent.emit();
-    } else {
-      this.validError = true;
-    }
-  }
-
 }

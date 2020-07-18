@@ -4,15 +4,15 @@
 
 <div class="todo-list" *ngIf="!todoService.loading">
   <div class="todo-list__nav">
-    <div class="todo-list__btn todo-list__btn--add" (click)="onClickAddButton()">
+    <button class="todo-list__btn todo-list__btn--add" (click)="onClickAddButton()">
       <i class="fas fa-plus"></i>
-    </div>
+    </button>
     <div class="todo-list__title">
       <h1>To-Do List</h1>
     </div>
-    <div class="todo-list__btn todo-list__btn--gear" (click)="onClickGearButton()">
+    <button class="todo-list__btn todo-list__btn--gear" (click)="onClickGearButton()">
       <i class="fas fa-cog"></i>
-    </div>
+    </button>
   </div>
 
   <div class="todo-list__tasks-list">

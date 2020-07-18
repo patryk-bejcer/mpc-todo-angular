@@ -2,15 +2,15 @@
     <div class="todo-add-popup__close" (click)="onClickClosePopupButton()">
       <i class="fas fa-times"></i>
     </div>
-    <form class="todo-add-popup__form">
+    <form class="todo-add-popup__form" (ngSubmit)="onSubmit()">
       <label for="task-name">Please enter the task name</label>
       <div class="todo-add-popup__input">
-        <input name="todoTitle" id="task-name" type="text" [(ngModel)]="title">
-        <div class="todo-add-popup__add-btn" (click)="onClickAddButton()">
+        <input name="todoTitle" id="task-name" type="text" [(ngModel)]="title" (input)="onInputChange()">
+        <button type="submit" class="todo-add-popup__add-btn" >
           <i class="fas fa-plus"></i>
           <span>Add</span>
-        </div>
+        </button>
       </div>
-      <span *ngIf="validError" class="error-notification">Task name must be at least 3 characters long.</span>
+      <span *ngIf="!isInputValid" class="error-notification">Task name must be at least 3 characters long.</span>
     </form>
 </div>

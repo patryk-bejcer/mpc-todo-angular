@@ -39,8 +39,10 @@
     width: 100%;
 
     &.completed {
-      color: $color-gray;
-      text-decoration-line: line-through;
+      span {
+        color: $color-gray;
+        text-decoration-line: line-through;
+      }
     }
 
     .error {
@@ -59,16 +61,20 @@
   }
 
   &__input-edit {
+    border: none;
     font-size: .875rem;
-    width: 80%;
+    flex-grow: 1;
   }
 
   &__close-edit, &__save {
-    padding-left: 10px;
-
+    background: transparent;
+    border: none;
     &:hover {
       cursor: pointer;
       color: $color-secondary;
+    }
+    &:first-child {
+      padding-right: 10px;
     }
   }
 
@@ -89,6 +95,8 @@
   }
 
   &__btn {
+    border: none;
+    background: transparent;
     padding: 0 5px;
 
     i {

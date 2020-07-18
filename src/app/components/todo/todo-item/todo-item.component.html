@@ -2,30 +2,30 @@
 
   <div class="todo-item__status">
     <label class="custom-checkbox">
-      <input type="checkbox" [(ngModel)]="todo.is_completed" (click)="onClickChangeStatus()">
+      <input type="checkbox" [(ngModel)]="localTodo.isCompleted" (click)="onClickChangeStatus()">
       <span class="checkmark"></span>
     </label>
   </div>
 
-  <div class="todo-item__task" [ngClass]="{'completed': todo.is_completed}">
-     <span class="todo-item__title" *ngIf="!edit">{{todo.task}}</span>
-     <ng-template [ngIf]="edit">
-       <input type="text" class="todo-item__input-edit" [(ngModel)]="todo.task" (ngModelChange)="validInput()">
-       <span (click)="onClickSave()" class="todo-item__save"><i class="fas fa-check"></i></span>
-       <span (click)="onClickCloseInput()" class="todo-item__close-edit"><i class="fas fa-times"></i></span>
-     </ng-template>
+  <div class="todo-item__task" [ngClass]="{'completed': localTodo.isCompleted}">
+     <span class="todo-item__title" *ngIf="!edit">{{localTodo.task}}</span>
+     <div *ngIf="edit">
+       <input type="text" class="todo-item__input-edit" [(ngModel)]="localTodo.task" (ngModelChange)="validInput()" autofocus>
+       <button (click)="onClickSave()" class="todo-item__save"><i class="fas fa-check"></i></button>
+       <button (click)="onClickCloseInput()" class="todo-item__close-edit"><i class="fas fa-times"></i></button>
+     </div>
     <div class="error" *ngIf="validError">
       <span class="error-notification">Task name must be at least 3 characters long.</span>
     </div>
   </div>
 
   <div class="todo-item__actions" *ngIf="!edit">
-    <div class="todo-item__btn todo-item__btn--edit" (click)="onClickEditButton()">
+    <button class="todo-item__btn todo-item__btn--edit" (click)="onClickEditButton()">
       <i class="far fa-edit"></i>
-    </div>
-    <div class="todo-item__btn todo-item__btn--remove" (click)="onClickRemoveButton(todo.id)" >
+    </button>
+    <button class="todo-item__btn todo-item__btn--remove" (click)="onClickRemoveButton(localTodo.id)" >
       <i class="fas fa-trash-alt"></i>
-    </div>
+    </button>
   </div>
 
 </div>

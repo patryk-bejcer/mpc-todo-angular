@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {TodoService} from '../../../services/todo.service';
-import {Todo} from '../../../interfaces/todo';
+import {Todo} from '../../../classes/todo';
 
 @Component({
   selector: 'app-todo-item',
@@ -9,6 +9,7 @@ import {Todo} from '../../../interfaces/todo';
 })
 export class TodoItemComponent implements OnInit {
   @Input() todo: Todo;
+  localTodo: Todo;
   edit: boolean;
   validError: boolean;
 
@@ -17,9 +18,12 @@ export class TodoItemComponent implements OnInit {
 
   ngOnInit(): void {
     this.edit = false;
+    this.localTodo = new Todo(this.todo.id, this.todo.task, this.todo.isCompleted);
   }
 
   onClickChangeStatus(): void {
+    this.localTodo.isCompleted = !this.localTodo.isCompleted;
+    this.todo.isCompleted = this.localTodo.isCompleted;
     this.todoService.updateTodoStatus(this.todo);
   }
 
@@ -38,7 +42,12 @@ export class TodoItemComponent implements OnInit {
   }
 
   onClickSave(): void {
+    if (this.todo.task === this.localTodo.task) {
+      this.edit = false;
+      return;
+    }
     if (!this.validError) {
+      this.todo.task = this.localTodo.task;
       this.todoService.updateTodo(this.todo);
       this.edit = false;
     }
