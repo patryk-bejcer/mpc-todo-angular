@@ -19,7 +19,7 @@ export class TodoItemComponent implements OnInit {
   }
 
   onClickChangeStatus(): void {
-    //
+    this.todoService.updateTodoStatus(this.todo);
   }
 
   onClickEditButton(): void {
@@ -27,7 +27,8 @@ export class TodoItemComponent implements OnInit {
   }
 
   onClickSave(): void {
-    alert('save');
+    this.todoService.updateTodo(this.todo);
+    this.edit = false;
   }
 
   onClickRemoveButton(id): void {

@@ -1,5 +1,21 @@
 @import "../../../../assets/scss/variables";
 
+:host(:last-child) .todo-item {
+  .todo-item__status,
+  .todo-item__task {
+    padding-bottom: 2rem;
+  }
+
+  &__actions {
+    align-items: flex-start;
+    padding-top: 7px;
+  }
+
+  &__status {
+    padding-top:13px;
+  }
+}
+
 .todo-item {
   display: flex;
   border-bottom: 1px solid $color-gray;

@@ -10,6 +10,7 @@ const API_URL = environment.API_URL;
 })
 export class TodoService {
   todos: Todo[] = [];
+  todosTemp: Todo[] = [];
   formData: FormData = new FormData();
   loading: boolean;
 
@@ -65,21 +66,41 @@ export class TodoService {
 
   // Update element.
   updateTodo(todo: Todo): void {
-    let isCompleted;
-    todo.is_completed ? isCompleted = '1' : isCompleted = '0';
-
-    console.log(todo);
-
-    this.appendFormData('122a1bc5-8407-4677-b966-689ccbbc46b1', '', '1');
+    const tempTodoIndex = this.todos.findIndex(el => {
+      return el.id === todo.id;
+    });
+    const tempTodo = this.todos[tempTodoIndex];
+    this.todos[tempTodoIndex].task = todo.task;
+    this.todos[tempTodoIndex].is_completed = todo.is_completed;
+    this.sortTodos();
+    this.appendFormData(todo.id, todo.task, todo.is_completed ? '1' : '');
     this.http.post<{ data: Array<Todo> }>(API_URL, this.formData)
       .subscribe(
-        ({data}) => {},
+        () => {
+        },
+        error => {
+          console.log(error);
+          const updatedTodoIndex = this.todos.findIndex((el) => {
+            return el.id === todo.id;
+          });
+          this.todos[updatedTodoIndex].task = tempTodo.task;
+        },
+      );
+  }
+
+  updateTodoStatus(todo): void {
+    let isCompleted;
+    todo.is_completed ? isCompleted = '0' : isCompleted = '1';
+    this.appendFormData(todo.id, todo.task, isCompleted);
+    this.http.post<{ data: Array<Todo> }>(API_URL, this.formData)
+      .subscribe(
+        () => {
+        },
         error => {
           console.log(error);
         },
       );
   }
-
 
   // Remove task.
   removeTodo(id): void {
@@ -88,8 +109,7 @@ export class TodoService {
     this.todos.splice(index, 1);
     // Send request to API.
     this.http.delete<{ data: Todo }>(`${API_URL}/${id}`).subscribe(
-      (data) => {
-        console.log(data);
+      () => {
       },
       error => {
         this.todos.unshift(tempTodo);
@@ -103,6 +123,24 @@ export class TodoService {
     this.formData.append('id', id);
     this.formData.append('task', task);
     this.formData.append('is_completed', completed);
+  }
+
+  // Show only completed.
+  showOnlyCompleted(): any {
+    this.todosTemp = this.todos;
+    this.todos = this.todos.filter((todo) => {
+      // tslint:disable-next-line:triple-equals
+      if (todo.is_completed == true) {
+        return todo;
+      } else {
+        return false;
+      }
+    });
+  }
+
+  // Return from temp.
+  showAll(): void {
+    this.todos = this.todosTemp;
   }
 
   // Sort alphabetical.
