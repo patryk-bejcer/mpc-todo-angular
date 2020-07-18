@@ -16,4 +16,8 @@ export class TodoItemComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  onClickRemoveButton(id): void {
+    this.todoService.removeTodo(id);
+  }
+
 }

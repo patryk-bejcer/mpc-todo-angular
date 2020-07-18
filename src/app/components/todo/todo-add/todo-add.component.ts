@@ -1,4 +1,5 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {TodoService} from '../../../services/todo.service';
 
 @Component({
   selector: 'app-todo-add',
@@ -6,16 +7,25 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
   styleUrls: ['./todo-add.component.scss']
 })
 export class TodoAddComponent implements OnInit {
+  title: string;
   @Output() closePopupEvent = new EventEmitter<string>();
 
-  constructor() {
+  constructor(public todoService: TodoService) {
   }
 
   ngOnInit(): void {
+    this.title = '';
   }
 
   onClickClosePopupButton(): void {
     this.closePopupEvent.emit();
+  }
+
+  onClickAddButton(): void {
+    if (this.title.length >= 3) {
+      this.todoService.addTodo(this.title);
+      this.closePopupEvent.emit();
+    }
   }
 
 }

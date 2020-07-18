@@ -5,8 +5,8 @@
     <form class="todo-add-popup__form">
       <label for="task-name">Please enter the task name</label>
       <div class="todo-add-popup__input">
-        <input id="task-name" type="text">
-        <div class="todo-add-popup__add-btn">
+        <input name="todoTitle" id="task-name" type="text" [(ngModel)]="title">
+        <div class="todo-add-popup__add-btn" (click)="onClickAddButton()">
           <i class="fas fa-plus"></i>
           <span>Add</span>
         </div>
