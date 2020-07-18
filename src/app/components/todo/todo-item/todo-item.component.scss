@@ -18,11 +18,35 @@
     border-left: 1px solid $color-accent;
     margin-left: 2px;
     padding: 10px;
+    position: relative;
+    width: 100%;
 
     span {
       font-size: .8rem;
       font-weight: bold;
     }
+  }
+
+  &__input-edit {
+    font-size: .875rem;
+    width: 100%;
+  }
+
+  &__close-edit, &__save {
+    padding-left: 10px;
+
+    &:hover {
+      cursor: pointer;
+      color: $color-secondary;
+    }
+  }
+
+  &__save {
+    padding-left: 10px;
+  }
+
+  &__close-edit {
+    padding-right: 10px;
   }
 
   &__actions {
@@ -34,7 +58,7 @@
   }
 
   &__btn {
-    padding:0 5px;
+    padding: 0 5px;
 
     i {
       transition: color .15s ease-in-out;

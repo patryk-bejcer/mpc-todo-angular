@@ -9,11 +9,25 @@ import {Todo} from '../../../interfaces/todo';
 })
 export class TodoItemComponent implements OnInit {
   @Input() todo: Todo;
+  edit: boolean;
 
   constructor(public todoService: TodoService) {
   }
 
   ngOnInit(): void {
+    this.edit = false;
+  }
+
+  onClickChangeStatus(): void {
+    //
+  }
+
+  onClickEditButton(): void {
+    this.edit = true;
+  }
+
+  onClickSave(): void {
+    alert('save');
   }
 
   onClickRemoveButton(id): void {

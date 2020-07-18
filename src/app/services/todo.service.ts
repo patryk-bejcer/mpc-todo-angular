@@ -63,6 +63,24 @@ export class TodoService {
       );
   }
 
+  // Update element.
+  updateTodo(todo: Todo): void {
+    let isCompleted;
+    todo.is_completed ? isCompleted = '1' : isCompleted = '0';
+
+    console.log(todo);
+
+    this.appendFormData('122a1bc5-8407-4677-b966-689ccbbc46b1', '', '1');
+    this.http.post<{ data: Array<Todo> }>(API_URL, this.formData)
+      .subscribe(
+        ({data}) => {},
+        error => {
+          console.log(error);
+        },
+      );
+  }
+
+
   // Remove task.
   removeTodo(id): void {
     const index = this.todos.findIndex(todo => todo.id === id);

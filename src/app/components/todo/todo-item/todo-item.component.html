@@ -2,20 +2,25 @@
 
   <div class="todo-item__status">
     <label class="custom-checkbox">
-      <input type="checkbox">
+      <input type="checkbox" [(ngModel)]="todo.is_completed" (click)="onClickChangeStatus()">
       <span class="checkmark"></span>
     </label>
   </div>
 
   <div class="todo-item__task">
-      <span class="todo-item__title">{{todo.task}}</span>
+     <span class="todo-item__title" *ngIf="!edit">{{todo.task}}</span>
+     <ng-template [ngIf]="edit">
+       <input type="text" class="todo-item__input-edit" [(ngModel)]="todo.task">
+       <span (click)="onClickSave()" class="todo-item__save"><i class="fas fa-check"></i></span>
+       <span (click)="edit = !edit" class="todo-item__close-edit"><i class="fas fa-times"></i></span>
+     </ng-template>
   </div>
 
-  <div class="todo-item__actions">
-    <div class="todo-item__btn todo-item__btn--edit">
+  <div class="todo-item__actions" *ngIf="!edit">
+    <div class="todo-item__btn todo-item__btn--edit" (click)="onClickEditButton()">
       <i class="far fa-edit"></i>
     </div>
-    <div class="todo-item__btn todo-item__btn--remove" (click)="onClickRemoveButton(todo.id)">
+    <div class="todo-item__btn todo-item__btn--remove" (click)="onClickRemoveButton(todo.id)" >
       <i class="fas fa-trash-alt"></i>
     </div>
   </div>
