@@ -1,0 +1,58 @@
+@import "../../../../assets/scss/variables";
+@import "../../../../assets/scss/mixins";
+
+.todo-list {
+  background: $color-light;
+  max-width: 100%;
+  width: 400px;
+  border-radius: 3px;
+
+  @include respond-to('small') {
+    width: 100%;
+  }
+
+  &__nav {
+    @include default-gradient;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 20px;
+    border-top-right-radius: 3px;
+    border-top-left-radius: 3px;
+  }
+
+  &__btn {
+    padding: 5px 10px;
+    border: 1px solid $color-secondary;
+    border-radius: 3px;
+    color: $color-primary;
+    text-shadow: $text-shadow-primary;
+
+    i {
+      transition: transform .3s ease-in-out;
+    }
+
+    &:hover {
+      cursor: pointer;
+
+      i {
+        transform: rotate(90deg);
+      }
+    }
+  }
+
+  &__title {
+    padding:0 10px;
+
+    h1 {
+      font-size: 1rem;
+      color: $color-primary;
+      text-shadow: $text-shadow-primary;
+    }
+  }
+
+  &__tasks-list {
+    min-height: 50px;
+  }
+
+}

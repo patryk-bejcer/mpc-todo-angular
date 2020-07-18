@@ -1,1 +1,25 @@
-<p>todo-list works!</p>
+<app-todo-add></app-todo-add>
+
+<div class="todo-list">
+
+  <div class="todo-list__nav">
+    <div class="todo-list__btn todo-list__btn--add">
+      <i class="fas fa-plus"></i>
+    </div>
+    <div class="todo-list__title">
+      <h1>To-Do List</h1>
+    </div>
+    <div class="todo-list__btn todo-list__btn--gear">
+      <i class="fas fa-cog"></i>
+    </div>
+  </div>
+
+  <div class="todo-list__tasks-list">
+    <app-todo-item></app-todo-item>
+    <app-todo-item></app-todo-item>
+    <app-todo-item></app-todo-item>
+    <app-todo-item></app-todo-item>
+    <app-todo-item></app-todo-item>
+  </div>
+
+</div>
