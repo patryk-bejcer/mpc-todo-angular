@@ -12,7 +12,7 @@
   }
 
   &__status {
-    padding-top:13px;
+    padding-top: 13px;
   }
 }
 
@@ -34,18 +34,33 @@
     border-left: 1px solid $color-accent;
     margin-left: 2px;
     padding: 10px;
+    flex-wrap: wrap;
     position: relative;
     width: 100%;
+
+    &.completed {
+      color: $color-gray;
+      text-decoration-line: line-through;
+    }
+
+    .error {
+      width: 100%;
+
+      span {
+        font-size: .5rem;
+      }
+    }
 
     span {
       font-size: .8rem;
       font-weight: bold;
+      word-break: break-all;
     }
   }
 
   &__input-edit {
     font-size: .875rem;
-    width: 100%;
+    width: 80%;
   }
 
   &__close-edit, &__save {

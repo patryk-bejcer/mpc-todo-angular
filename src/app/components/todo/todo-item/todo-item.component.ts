@@ -10,6 +10,7 @@ import {Todo} from '../../../interfaces/todo';
 export class TodoItemComponent implements OnInit {
   @Input() todo: Todo;
   edit: boolean;
+  validError: boolean;
 
   constructor(public todoService: TodoService) {
   }
@@ -23,12 +24,24 @@ export class TodoItemComponent implements OnInit {
   }
 
   onClickEditButton(): void {
+    this.validInput();
     this.edit = true;
   }
 
-  onClickSave(): void {
-    this.todoService.updateTodo(this.todo);
+  onClickCloseInput(): void {
     this.edit = false;
+    this.validError = false;
+  }
+
+  validInput(): void {
+    this.validError = this.todo.task.length <= 3;
+  }
+
+  onClickSave(): void {
+    if (!this.validError) {
+      this.todoService.updateTodo(this.todo);
+      this.edit = false;
+    }
   }
 
   onClickRemoveButton(id): void {

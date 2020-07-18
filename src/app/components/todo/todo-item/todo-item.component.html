@@ -7,13 +7,16 @@
     </label>
   </div>
 
-  <div class="todo-item__task">
+  <div class="todo-item__task" [ngClass]="{'completed': todo.is_completed}">
      <span class="todo-item__title" *ngIf="!edit">{{todo.task}}</span>
      <ng-template [ngIf]="edit">
-       <input type="text" class="todo-item__input-edit" [(ngModel)]="todo.task">
+       <input type="text" class="todo-item__input-edit" [(ngModel)]="todo.task" (ngModelChange)="validInput()">
        <span (click)="onClickSave()" class="todo-item__save"><i class="fas fa-check"></i></span>
-       <span (click)="edit = !edit" class="todo-item__close-edit"><i class="fas fa-times"></i></span>
+       <span (click)="onClickCloseInput()" class="todo-item__close-edit"><i class="fas fa-times"></i></span>
      </ng-template>
+    <div class="error" *ngIf="validError">
+      <span class="error-notification">Task name must be at least 3 characters long.</span>
+    </div>
   </div>
 
   <div class="todo-item__actions" *ngIf="!edit">

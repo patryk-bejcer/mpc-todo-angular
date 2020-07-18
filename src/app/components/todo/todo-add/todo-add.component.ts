@@ -8,6 +8,7 @@ import {TodoService} from '../../../services/todo.service';
 })
 export class TodoAddComponent implements OnInit {
   title: string;
+  validError: boolean;
   @Output() closePopupEvent = new EventEmitter<string>();
 
   constructor(public todoService: TodoService) {
@@ -22,9 +23,11 @@ export class TodoAddComponent implements OnInit {
   }
 
   onClickAddButton(): void {
-    if (this.title.length >= 3) {
+    if (this.title.length > 3) {
       this.todoService.addTodo(this.title);
       this.closePopupEvent.emit();
+    } else {
+      this.validError = true;
     }
   }
 

@@ -22,10 +22,10 @@ describe('AppComponent', () => {
     expect(app.title).toEqual('mpc-todo');
   });
 
-  it('should render title', () => {
+  it('should render app-container', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('mpc-todo app is running!');
+    expect(compiled.querySelector('.app-container').textContent);
   });
 });

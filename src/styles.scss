@@ -15,6 +15,11 @@ body {
   position: relative;
 }
 
+.error-notification {
+  color: orangered;
+  font-size: .625rem;
+}
+
 /* Customize the label (the custom-checkbox) */
 .custom-checkbox {
   display: block;
