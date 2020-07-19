@@ -1,16 +1,13 @@
 <div class="todo-item">
 
   <div class="todo-item__status">
-    <label class="custom-checkbox">
-      <input type="checkbox" [(ngModel)]="localTodo.isCompleted" (click)="onClickChangeStatus()">
-      <span class="checkmark"></span>
-    </label>
+    <app-status-checkbox (changeStatusEvent)="changeStatus()" [status]="localTodo.isCompleted"></app-status-checkbox>
   </div>
 
   <div class="todo-item__task" [ngClass]="{'completed': localTodo.isCompleted}">
      <span class="todo-item__title" *ngIf="!edit">{{localTodo.task}}</span>
      <div *ngIf="edit">
-       <input type="text" class="todo-item__input-edit" [(ngModel)]="localTodo.task" (ngModelChange)="validInput()" autofocus>
+       <input type="text" class="todo-item__input-edit" [(ngModel)]="localTodo.task"  (ngModelChange)="validInput()">
        <button (click)="onClickSave()" class="todo-item__save"><i class="fas fa-check"></i></button>
        <button (click)="onClickCloseInput()" class="todo-item__close-edit"><i class="fas fa-times"></i></button>
      </div>

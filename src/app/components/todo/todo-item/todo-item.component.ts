@@ -27,6 +27,12 @@ export class TodoItemComponent implements OnInit {
     this.todoService.updateTodoStatus(this.todo);
   }
 
+  changeStatus(): void {
+    this.localTodo.isCompleted = !this.localTodo.isCompleted;
+    this.todo.isCompleted = this.localTodo.isCompleted;
+    this.todoService.updateTodoStatus(this.todo);
+  }
+
   onClickEditButton(): void {
     this.validInput();
     this.edit = true;
@@ -38,7 +44,7 @@ export class TodoItemComponent implements OnInit {
   }
 
   validInput(): void {
-    this.validError = this.todo.task.length <= 3;
+    this.validError = this.localTodo.task.length <= 3;
   }
 
   onClickSave(): void {

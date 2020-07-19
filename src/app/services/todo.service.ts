@@ -29,13 +29,14 @@ export class TodoService {
       error => {
         this.loading = false;
         console.log(error);
+        return;
       }
     );
     return this.todos;
   }
 
   addTodo(title): void {
-    const newTodo: Todo = new  Todo('', title, false);
+    const newTodo: Todo = new Todo('', title, false);
     // Add to array new element.
     this.todos.unshift(newTodo);
     this.sortTodos();
@@ -45,9 +46,12 @@ export class TodoService {
         ({data}) => {
           const [item] = data;
           newTodo.id = item.id;
+          return data;
         },
         error => {
           this.todos = this.todos.filter(t => t !== newTodo);
+          console.log(error);
+          return;
         },
       );
   }
@@ -58,11 +62,14 @@ export class TodoService {
     this.sortTodos();
     this.http.post<{ data: Array<TodoResponse> }>(API_URL, this.prepareFormData(todo))
       .subscribe(
-        () => {
+        (response: {status: string, data: []}) => {
+          return response.status === 'success';
         },
         error => {
           const updatedTodo = this.todos.find(el => el === todo);
           updatedTodo.task = tempTask;
+          console.log(error);
+          return;
         },
       );
   }
@@ -70,10 +77,12 @@ export class TodoService {
   updateTodoStatus(todo): void {
     this.http.post<{ data: Array<TodoResponse> }>(API_URL, this.prepareFormData(todo))
       .subscribe(
-        () => {
+        (response: {status: string, data: []}) => {
+          return response.status === 'success';
         },
         error => {
           console.log(error);
+          return;
         },
       );
   }
@@ -85,17 +94,20 @@ export class TodoService {
     this.todos.splice(index, 1);
     // Send request to API.
     this.http.delete(`${API_URL}/${id}`).subscribe(
-      () => {},
+      (response: {status: string, data: []}) => {
+        return response.status === 'success';
+      },
       error => {
         this.todos.unshift(tempTodo);
         console.log(error);
+        return;
       }
     );
   }
 
   // Prepare form data to send with request.
   prepareFormData(todoItem: Todo): FormData {
-    const requestModel = todoItem.toResponse(); // TODO change name
+    const requestModel = todoItem.toResponse();
     const formData = new FormData();
     formData.append('id', requestModel.id);
     formData.append('task', requestModel.task);

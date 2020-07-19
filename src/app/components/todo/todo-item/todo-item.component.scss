@@ -39,7 +39,7 @@
     width: 100%;
 
     &.completed {
-      span {
+      span.todo-item__title {
         color: $color-gray;
         text-decoration-line: line-through;
       }
